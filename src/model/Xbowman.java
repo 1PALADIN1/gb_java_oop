@@ -8,7 +8,8 @@ public class Xbowman extends Unit {
         shoots = 16;
     }
 
-    public String toString() {
-        return "Xbowman " + super.toString() + ", shoots: " + shoots + ", " + getState();
+    @Override
+    public String getInfo() {
+        return "Xbowman " + super.getInfo() + ", shoots: " + shoots + ", " + getState();
     }
 }
