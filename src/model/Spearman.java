@@ -6,7 +6,7 @@ public class Spearman extends Unit {
     }
 
     @Override
-    public String toString() {
-        return "Spearman " + super.toString() + ", " + getState();
+    public String getInfo() {
+        return "Spearman " + super.getInfo() + ", " + getState();
     }
 }

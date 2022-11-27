@@ -6,7 +6,7 @@ public class Robber extends Unit {
     }
 
     @Override
-    public String toString() {
-        return "Robber " + super.toString() + ", " + getState();
+    public String getInfo() {
+        return "Robber " + super.getInfo() + ", " + getState();
     }
 }

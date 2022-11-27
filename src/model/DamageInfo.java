@@ -12,4 +12,12 @@ public class DamageInfo {
     public int getAverage() {
         return (min + max) / 2;
     }
+
+    public int getMin() {
+        return min;
+    }
+
+    public int getMax() {
+        return max;
+    }
 }

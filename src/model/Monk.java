@@ -9,7 +9,7 @@ public class Monk extends Unit {
     }
 
     @Override
-    public String toString() {
-        return "Monk " + super.toString() + ", magic, " + getState();
+    public String getInfo() {
+        return "Monk " + super.getInfo() + ", magic, " + getState();
     }
 }
