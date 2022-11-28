@@ -1,4 +1,4 @@
-package model;
+package model.units;
 
 public class DamageInfo {
     private final int min;
