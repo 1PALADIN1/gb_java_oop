@@ -42,6 +42,10 @@ public abstract class Unit implements UnitInterface {
         return name;
     }
 
+    public char getDisplayChar() {
+        return getName().toUpperCase().charAt(0);
+    }
+
     @Override
     public String getInfo() {
         return "Attack:" + attack + ", defence:" + defense + ", damage:" + damage.getAverage() +

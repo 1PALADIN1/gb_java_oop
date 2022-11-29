@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Game {
+public class Game implements GameInfo {
     private static final int INIT_STEP = 1;
 
     private final int gangSize;

@@ -1,10 +1,12 @@
 package view;
 
-import model.Game;
+import model.GameInfo;
 import model.Vector2;
 import model.units.Unit;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ConsoleView {
     private static final String topRow = formatDiv("a") + String.join("",
@@ -14,50 +16,63 @@ public class ConsoleView {
     private static final String bottomRow = formatDiv("g") + String.join("",
             Collections.nCopies(9, formatDiv("-h"))) + formatDiv("-i");
 
-    private final Game game;
+    private final GameInfo gameInfo;
 
-    public ConsoleView(Game game) {
-        this.game = game;
+    public ConsoleView(GameInfo gameInfo) {
+        this.gameInfo = gameInfo;
     }
 
     public void drawMap() {
-        if (game.isFirstStep()) {
+        if (gameInfo.isFirstStep()) {
             System.out.println(AnsiColors.ANSI_RED + "Game started! First turn." + AnsiColors.ANSI_RESET);
         } else {
-            System.out.println(AnsiColors.ANSI_RED + "Turn №" + game.getTurnNumber() + AnsiColors.ANSI_RESET);
+            System.out.println(AnsiColors.ANSI_RED + "Turn №" + gameInfo.getTurnNumber() + AnsiColors.ANSI_RESET);
         }
 
         System.out.println(topRow);
+        List<Unit> unitsAtPositions = new ArrayList<>();
 
-        for (int i = 1; i <= game.getGangSize() - 1; i++) {
-            for (int j = 1; j <= game.getGangSize(); j++) {
-                System.out.print(getCharAtPosition(new Vector2(j, i)));
+        for (int i = 1; i <= gameInfo.getGangSize() - 1; i++) {
+            unitsAtPositions.clear();
+            for (int j = 1; j <= gameInfo.getGangSize(); j++) {
+                System.out.print(getCharAtPosition(new Vector2(j, i), unitsAtPositions));
             }
-            System.out.println("|");
-            System.out.println(midRow);
+            System.out.print("|");
+            System.out.println("\t\t" + AnsiColors.ANSI_GREEN + unitsAtPositions.get(0).getDisplayChar() + AnsiColors.ANSI_RESET
+                    + ": " + unitsAtPositions.get(0).getInfo());
+            System.out.print(midRow);
+            System.out.println("\t\t" + AnsiColors.ANSI_BLUE + unitsAtPositions.get(1).getDisplayChar() + AnsiColors.ANSI_RESET
+                    + ": " + unitsAtPositions.get(1).getInfo());
         }
 
-        for (int j = 1; j <= game.getGangSize(); j++) {
-            System.out.print(getCharAtPosition(new Vector2(j, game.getGangSize())));
+        unitsAtPositions.clear();
+        for (int j = 1; j <= gameInfo.getGangSize(); j++) {
+            System.out.print(getCharAtPosition(new Vector2(j, gameInfo.getGangSize()), unitsAtPositions));
         }
-        System.out.println("|");
+        System.out.print("|");
+        System.out.println("\t\t" + AnsiColors.ANSI_GREEN + unitsAtPositions.get(0).getDisplayChar() + AnsiColors.ANSI_RESET
+                + ": " + unitsAtPositions.get(0).getInfo());
+        System.out.print(bottomRow);
+        System.out.println("\t\t" + AnsiColors.ANSI_BLUE + unitsAtPositions.get(1).getDisplayChar() + AnsiColors.ANSI_RESET
+                + ": " + unitsAtPositions.get(1).getInfo());
 
-        System.out.println(bottomRow);
         System.out.println("Press Enter.");
     }
 
-    private String getCharAtPosition(Vector2 position) {
+    private String getCharAtPosition(Vector2 position, List<Unit> unitsAtPositions) {
         String str = "| ";
 
-        for (int i = 0; i < game.getGangSize(); i++) {
-            Unit darkUnit = game.getDarkSide().get(i);
+        for (int i = 0; i < gameInfo.getGangSize(); i++) {
+            Unit darkUnit = gameInfo.getDarkSide().get(i);
             if (darkUnit.getPosition().isEquals(position)) {
-                str = "|" + AnsiColors.ANSI_BLUE + darkUnit.getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET;
+                str = "|" + AnsiColors.ANSI_BLUE + darkUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
+                unitsAtPositions.add(darkUnit);
             }
 
-            Unit whiteUnit = game.getWhiteSide().get(i);
+            Unit whiteUnit = gameInfo.getWhiteSide().get(i);
             if (whiteUnit.getPosition().isEquals(position)) {
-                str = "|" + AnsiColors.ANSI_GREEN + whiteUnit.getName().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET;
+                str = "|" + AnsiColors.ANSI_GREEN + whiteUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
+                unitsAtPositions.add(whiteUnit);
             }
         }
 
