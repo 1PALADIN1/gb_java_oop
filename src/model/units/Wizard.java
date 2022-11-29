@@ -1,14 +1,17 @@
-package model;
+package model.units;
+
+import model.Vector2;
 
 import java.util.List;
 
 public class Wizard extends Unit {
     private boolean magic;
 
-    public Wizard(List<Unit> gang) {
-        super(17, 12, new DamageInfo(-5, -5), 30, 9, UnitState.STAND);
+    public Wizard(List<Unit> gang, Vector2 initPosition) {
+        super(17, 12, new DamageInfo(-5, -5), 30, 9, UnitState.STAND, "Wizard");
         magic = true;
         setGang(gang);
+        setPosition(initPosition);
     }
 
     @Override
@@ -17,7 +20,7 @@ public class Wizard extends Unit {
     }
 
     @Override
-    public void step() {
+    public void step(List<Unit> opponents) {
         List<Unit> gang = getGang();
         float minHealth = Integer.MAX_VALUE;
         int minIndex = -1;
