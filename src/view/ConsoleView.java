@@ -3,6 +3,7 @@ package view;
 import model.GameInfo;
 import model.Vector2;
 import model.units.Unit;
+import model.units.UnitState;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,13 +66,15 @@ public class ConsoleView {
         for (int i = 0; i < gameInfo.getGangSize(); i++) {
             Unit darkUnit = gameInfo.getDarkSide().get(i);
             if (darkUnit.getPosition().isEquals(position)) {
-                str = "|" + AnsiColors.ANSI_BLUE + darkUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
+                String color = darkUnit.getState() == UnitState.DEAD ? AnsiColors.ANSI_RED : AnsiColors.ANSI_BLUE;
+                str = "|" + color + darkUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
                 unitsAtPositions.add(darkUnit);
             }
 
             Unit whiteUnit = gameInfo.getWhiteSide().get(i);
             if (whiteUnit.getPosition().isEquals(position)) {
-                str = "|" + AnsiColors.ANSI_GREEN + whiteUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
+                String color = whiteUnit.getState() == UnitState.DEAD ? AnsiColors.ANSI_RED : AnsiColors.ANSI_GREEN;
+                str = "|" + color + whiteUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
                 unitsAtPositions.add(whiteUnit);
             }
         }

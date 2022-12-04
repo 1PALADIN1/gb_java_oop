@@ -16,4 +16,8 @@ public class Vector2 {
     public boolean isEquals(Vector2 other) {
         return x == other.x && y == other.y;
     }
+
+    public double distance(Vector2 other) {
+        return Math.sqrt(Math.pow(other.x - x, 2) + Math.pow(other.y - y, 2));
+    }
 }

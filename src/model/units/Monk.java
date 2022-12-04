@@ -7,15 +7,14 @@ import java.util.List;
 public class Monk extends Unit {
     private boolean magic;
 
-    public Monk(List<Unit> gang, Vector2 initPosition) {
-        super(12, 7, new DamageInfo(-4, -4), 30, 5, UnitState.STAND, "Monk");
+    public Monk(List<Unit> gang, List<Unit> enemies, Vector2 initPosition) {
+        super(12, 7, new DamageInfo(-4, -4), 30, 5, UnitState.STAND, UnitName.MONK, gang, enemies);
         magic = true;
-        setGang(gang);
         setPosition(initPosition);
     }
 
     @Override
     public String getInfo() {
-        return "Monk " + super.getInfo() + ", magic, " + getState();
+        return "Monk " + super.getInfo() + ", magic" ;
     }
 }

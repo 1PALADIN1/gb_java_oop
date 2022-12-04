@@ -4,27 +4,29 @@ import model.Vector2;
 
 import java.util.List;
 
-public class Sniper extends Unit {
+public class Crossbowman extends Unit {
     private int shoots;
 
-    public Sniper(List<Unit> gang, List<Unit> enemies, Vector2 initPosition) {
-        super(12, 10, new DamageInfo(8, 10), 15, 9, UnitState.STAND, UnitName.SNIPER, gang, enemies);
-        shoots = 32;
+    public Crossbowman(List<Unit> gang, List<Unit> enemies, Vector2 initPosition) {
+        super(6, 3, new DamageInfo(2, 3), 10, 4, UnitState.STAND, UnitName.CROSSBOWMAN, gang, enemies);
+        shoots = 16;
         setPosition(initPosition);
     }
 
     @Override
     public String getInfo() {
-        return "Sniper " + super.getInfo() + ", shoots: " + shoots;
+        return "Crossbowman " + super.getInfo() + ", shoots: " + shoots;
     }
 
     @Override
     public void step() {
         for (Unit unit : getGang()) {
             if (unit.getName().equals(UnitName.PEASANT)) {
-                shoots++;
-                unit.setState(UnitState.BUSY);
-                break;
+                if (unit.getState() != UnitState.BUSY && unit.getState() != UnitState.DEAD) {
+                    shoots++;
+                    unit.setState(UnitState.BUSY);
+                    break;
+                }
             }
         }
 

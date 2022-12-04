@@ -26,10 +26,10 @@ public class Game implements GameInfo {
         Random rand = new Random();
         for (int i = 0; i < this.gangSize; i++) {
             switch (rand.nextInt(4)) {
-                case 0 -> whiteSide.add(new Peasant(whiteSide, new Vector2(x, y++)));
-                case 1 -> whiteSide.add(new Robber(whiteSide, new Vector2(x, y++)));
-                case 2 -> whiteSide.add(new Sniper(whiteSide, new Vector2(x, y++)));
-                default -> whiteSide.add(new Monk(whiteSide, new Vector2(x, y++)));
+                case 0 -> whiteSide.add(new Peasant(whiteSide, darkSide, new Vector2(x, y++)));
+                case 1 -> whiteSide.add(new Robber(whiteSide, darkSide, new Vector2(x, y++)));
+                case 2 -> whiteSide.add(new Sniper(whiteSide, darkSide, new Vector2(x, y++)));
+                default -> whiteSide.add(new Monk(whiteSide, darkSide, new Vector2(x, y++)));
             }
         }
 
@@ -37,17 +37,19 @@ public class Game implements GameInfo {
         y = 1;
         for (int i = 0; i < this.gangSize; i++) {
             switch (rand.nextInt(4)) {
-                case 0 -> darkSide.add(new Peasant(darkSide, new Vector2(x, y++)));
-                case 1 -> darkSide.add(new Spearman(darkSide, new Vector2(x, y++)));
-                case 2 -> darkSide.add(new Xbowman(darkSide, new Vector2(x, y++)));
-                default -> darkSide.add(new Wizard(darkSide, new Vector2(x, y++)));
+                case 0 -> darkSide.add(new Peasant(darkSide, whiteSide, new Vector2(x, y++)));
+                case 1 -> darkSide.add(new Spearman(darkSide, whiteSide, new Vector2(x, y++)));
+                case 2 -> darkSide.add(new Crossbowman(darkSide, whiteSide, new Vector2(x, y++)));
+                default -> darkSide.add(new Wizard(darkSide, whiteSide, new Vector2(x, y++)));
             }
         }
     }
 
     public void nextTurn() {
-        whiteSide.forEach(unit -> unit.step(darkSide));
-        darkSide.forEach(unit -> unit.step(whiteSide));
+        List<Unit> sortedUnits = new ArrayList<>(whiteSide);
+        sortedUnits.addAll(darkSide);
+        sortedUnits.sort((o1, o2) -> o2.getSpeed() - o1.getSpeed());
+        sortedUnits.forEach(Unit::step);
         turnNumber++;
     }
 
