@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface UnitInterface {
     String getInfo();
-    void step(List<Unit> opponents);
+    void step();
 }

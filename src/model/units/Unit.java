@@ -12,13 +12,15 @@ public abstract class Unit implements UnitInterface {
     private final float maxHealth;
     private final int speed;
     private final String name;
+    private final List<Unit> gang;
+    private final List<Unit> enemies;
 
     private UnitState state;
     private float health;
     private Vector2 position;
-    private List<Unit> gang = new ArrayList<>();
 
-    public Unit(int attack, int defense, DamageInfo damage, float health, int speed, UnitState state, String name) {
+    public Unit(int attack, int defense, DamageInfo damage, float health, int speed, UnitState state, String name,
+                List<Unit> gang, List<Unit> enemies) {
         this.attack = attack;
         this.defense = defense;
         this.damage = damage;
@@ -27,6 +29,8 @@ public abstract class Unit implements UnitInterface {
         this.speed = speed;
         this.state = state;
         this.name = name;
+        this.gang = gang;
+        this.enemies = enemies;
         position = new Vector2();
     }
 
@@ -49,18 +53,38 @@ public abstract class Unit implements UnitInterface {
     @Override
     public String getInfo() {
         return "Attack:" + attack + ", defence:" + defense + ", damage:" + damage.getAverage() +
-                ", health:" + health + ", speed:" + speed;
+                ", health:" + health + ", speed:" + speed + ", state:" + state;
     }
 
     @Override
-    public void step(List<Unit> opponents) {}
+    public void step() {}
+
+    public float calcDamage(Unit unit) {
+        if (unit.getDefense() - attack == 0) {
+            return damage.getAverage();
+        }
+
+        if (unit.getDefense() - attack < 0) {
+            return damage.getMax();
+        }
+
+        return damage.getMin();
+    }
+
+    public void performHit(float damage) {
+        health -= damage;
+        if (health <= 0) {
+            health = 0;
+            state = UnitState.DEAD;
+        }
+    }
 
     protected List<Unit> getGang() {
         return gang;
     }
 
-    protected void setGang(List<Unit> gang) {
-        this.gang = gang;
+    protected List<Unit> getEnemies() {
+        return enemies;
     }
 
     protected float getMaxHealth() {
@@ -79,7 +103,19 @@ public abstract class Unit implements UnitInterface {
         return damage;
     }
 
-    protected UnitState getState() {
+    public int getSpeed() {
+        return speed;
+    }
+
+    public UnitState getState() {
         return state;
+    }
+
+    public void setState(UnitState state) {
+        this.state = state;
+    }
+
+    public int getDefense() {
+        return defense;
     }
 }

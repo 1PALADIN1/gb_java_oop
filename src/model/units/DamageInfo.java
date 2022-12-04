@@ -9,8 +9,8 @@ public class DamageInfo {
         this.max = max;
     }
 
-    public int getAverage() {
-        return (min + max) / 2;
+    public float getAverage() {
+        return (min + max) / 2.0f;
     }
 
     public int getMin() {

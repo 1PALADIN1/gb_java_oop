@@ -1,5 +1,7 @@
 package model.units;
 
 public enum UnitState {
-    STAND
+    STAND,
+    BUSY,
+    DEAD,
 }

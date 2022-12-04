@@ -7,26 +7,29 @@ import java.util.List;
 public class Wizard extends Unit {
     private boolean magic;
 
-    public Wizard(List<Unit> gang, Vector2 initPosition) {
-        super(17, 12, new DamageInfo(-5, -5), 30, 9, UnitState.STAND, "Wizard");
+    public Wizard(List<Unit> gang, List<Unit> enemies, Vector2 initPosition) {
+        super(17, 12, new DamageInfo(-5, -5), 30, 9, UnitState.STAND, UnitName.WIZARD, gang, enemies);
         magic = true;
-        setGang(gang);
         setPosition(initPosition);
     }
 
     @Override
     public String getInfo() {
-        return "Wizard " + super.getInfo() + ", magic, " + getState();
+        return "Wizard " + super.getInfo() + ", magic";
     }
 
     @Override
-    public void step(List<Unit> opponents) {
+    public void step() {
         List<Unit> gang = getGang();
         float minHealth = Integer.MAX_VALUE;
         int minIndex = -1;
 
         for (int i = 0; i < gang.size(); i++) {
             Unit unit = gang.get(i);
+            if (unit.getState() == UnitState.DEAD) {
+                continue;
+            }
+
             if (unit.getHealth() < unit.getMaxHealth() && unit.getHealth() < minHealth) {
                 minHealth = unit.getHealth();
                 minIndex = i;
