@@ -31,36 +31,40 @@ public class ConsoleView {
         }
 
         System.out.println(topRow);
-        List<Unit> unitsAtPositions = new ArrayList<>();
-
         for (int i = 1; i <= gameInfo.getGangSize() - 1; i++) {
-            unitsAtPositions.clear();
             for (int j = 1; j <= gameInfo.getGangSize(); j++) {
-                System.out.print(getCharAtPosition(new Vector2(j, i), unitsAtPositions));
+                System.out.print(getCharAtPosition(new Vector2(j, i)));
             }
             System.out.print("|");
-            System.out.println("\t\t" + AnsiColors.ANSI_GREEN + unitsAtPositions.get(0).getDisplayChar() + AnsiColors.ANSI_RESET
-                    + ": " + unitsAtPositions.get(0).getInfo());
+
+            Unit unit = gameInfo.getWhiteSide().get(i - 1);
+            System.out.println("\t\t" + AnsiColors.ANSI_GREEN + unit.getDisplayChar() + AnsiColors.ANSI_RESET
+                    + ": " + unit.getInfo());
+
             System.out.print(midRow);
-            System.out.println("\t\t" + AnsiColors.ANSI_BLUE + unitsAtPositions.get(1).getDisplayChar() + AnsiColors.ANSI_RESET
-                    + ": " + unitsAtPositions.get(1).getInfo());
+
+            unit = gameInfo.getDarkSide().get(i - 1);
+            System.out.println("\t\t" + AnsiColors.ANSI_BLUE + unit.getDisplayChar() + AnsiColors.ANSI_RESET
+                    + ": " + unit.getInfo());
         }
 
-        unitsAtPositions.clear();
         for (int j = 1; j <= gameInfo.getGangSize(); j++) {
-            System.out.print(getCharAtPosition(new Vector2(j, gameInfo.getGangSize()), unitsAtPositions));
+            System.out.print(getCharAtPosition(new Vector2(j, gameInfo.getGangSize())));
         }
         System.out.print("|");
-        System.out.println("\t\t" + AnsiColors.ANSI_GREEN + unitsAtPositions.get(0).getDisplayChar() + AnsiColors.ANSI_RESET
-                + ": " + unitsAtPositions.get(0).getInfo());
+        Unit unit = gameInfo.getWhiteSide().get(gameInfo.getWhiteSide().size() - 1);
+        System.out.println("\t\t" + AnsiColors.ANSI_GREEN + unit.getDisplayChar() + AnsiColors.ANSI_RESET
+                + ": " + unit.getInfo());
         System.out.print(bottomRow);
-        System.out.println("\t\t" + AnsiColors.ANSI_BLUE + unitsAtPositions.get(1).getDisplayChar() + AnsiColors.ANSI_RESET
-                + ": " + unitsAtPositions.get(1).getInfo());
+
+        unit = gameInfo.getDarkSide().get(gameInfo.getDarkSide().size() - 1);
+        System.out.println("\t\t" + AnsiColors.ANSI_BLUE + unit.getDisplayChar() + AnsiColors.ANSI_RESET
+                + ": " + unit.getInfo());
 
         System.out.println("Press Enter.");
     }
 
-    private String getCharAtPosition(Vector2 position, List<Unit> unitsAtPositions) {
+    private String getCharAtPosition(Vector2 position) {
         String str = "| ";
 
         for (int i = 0; i < gameInfo.getGangSize(); i++) {
@@ -68,14 +72,12 @@ public class ConsoleView {
             if (darkUnit.getPosition().isEquals(position)) {
                 String color = darkUnit.getState() == UnitState.DEAD ? AnsiColors.ANSI_RED : AnsiColors.ANSI_BLUE;
                 str = "|" + color + darkUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
-                unitsAtPositions.add(darkUnit);
             }
 
             Unit whiteUnit = gameInfo.getWhiteSide().get(i);
             if (whiteUnit.getPosition().isEquals(position)) {
                 String color = whiteUnit.getState() == UnitState.DEAD ? AnsiColors.ANSI_RED : AnsiColors.ANSI_GREEN;
                 str = "|" + color + whiteUnit.getDisplayChar() + AnsiColors.ANSI_RESET;
-                unitsAtPositions.add(whiteUnit);
             }
         }
 

@@ -3,6 +3,7 @@ package model.units;
 import model.Vector2;
 
 import java.util.List;
+import java.util.Random;
 
 public class Sniper extends Unit {
     private int shoots;
@@ -11,6 +12,7 @@ public class Sniper extends Unit {
         super(12, 10, new DamageInfo(8, 10), 15, 9, UnitState.STAND, UnitName.SNIPER, gang, enemies);
         shoots = 32;
         setPosition(initPosition);
+        setQuantity(new Random().nextInt(2, 4));
     }
 
     @Override

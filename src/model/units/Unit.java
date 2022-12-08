@@ -2,8 +2,8 @@ package model.units;
 
 import model.Vector2;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public abstract class Unit implements UnitInterface {
     private final int attack;
@@ -18,6 +18,7 @@ public abstract class Unit implements UnitInterface {
     private UnitState state;
     private float health;
     private Vector2 position;
+    private int quantity;
 
     public Unit(int attack, int defense, DamageInfo damage, float health, int speed, UnitState state, String name,
                 List<Unit> gang, List<Unit> enemies) {
@@ -61,22 +62,31 @@ public abstract class Unit implements UnitInterface {
 
     public float calcDamage(Unit unit) {
         if (unit.getDefense() - attack == 0) {
-            return damage.getAverage();
+            return damage.getAverage() * quantity;
         }
 
         if (unit.getDefense() - attack < 0) {
-            return damage.getMax();
+            return damage.getMax() * quantity;
         }
 
-        return damage.getMin();
+        return damage.getMin() * quantity;
     }
 
     public void performHit(float damage) {
-        health -= damage;
-        if (health <= 0) {
+        float tmpHealth = (quantity - 1) * maxHealth + health;
+        tmpHealth -= damage;
+        if (tmpHealth <= 0) {
             health = 0;
             state = UnitState.DEAD;
+        } else {
+            quantity = (int) (tmpHealth / maxHealth);
+            health = maxHealth;
+            if (tmpHealth % maxHealth > 0) {
+                quantity++;
+                health = tmpHealth % maxHealth;
+            }
         }
+
     }
 
     protected List<Unit> getGang() {
@@ -101,6 +111,10 @@ public abstract class Unit implements UnitInterface {
 
     protected DamageInfo getDamage() {
         return damage;
+    }
+
+    protected void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public int getSpeed() {

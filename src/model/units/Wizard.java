@@ -3,6 +3,7 @@ package model.units;
 import model.Vector2;
 
 import java.util.List;
+import java.util.Random;
 
 public class Wizard extends Unit {
     private boolean magic;
@@ -11,6 +12,7 @@ public class Wizard extends Unit {
         super(17, 12, new DamageInfo(-5, -5), 30, 9, UnitState.STAND, UnitName.WIZARD, gang, enemies);
         magic = true;
         setPosition(initPosition);
+        setQuantity(new Random().nextInt(1, 4));
     }
 
     @Override
