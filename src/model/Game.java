@@ -49,7 +49,11 @@ public class Game implements GameInfo {
         List<Unit> sortedUnits = new ArrayList<>(whiteSide);
         sortedUnits.addAll(darkSide);
         sortedUnits.sort((o1, o2) -> o2.getSpeed() - o1.getSpeed());
-        sortedUnits.forEach(Unit::step);
+        sortedUnits.forEach(unit -> {
+            if (unit.getState() != UnitState.DEAD) {
+                unit.step();
+            }
+        });
         turnNumber++;
     }
 
