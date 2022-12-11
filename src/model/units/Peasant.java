@@ -17,7 +17,7 @@ public class Peasant extends Unit {
 
     @Override
     public String getInfo() {
-        return "Peasant " + super.getInfo() + ", delivery";
+        return "Peasant\t\t" + super.getInfo() + ", delivery";
     }
 
     @Override

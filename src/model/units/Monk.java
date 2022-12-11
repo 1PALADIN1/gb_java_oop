@@ -17,6 +17,6 @@ public class Monk extends Unit {
 
     @Override
     public String getInfo() {
-        return "Monk " + super.getInfo() + ", magic" ;
+        return "Monk\t\t\t" + super.getInfo() + ", magic" ;
     }
 }

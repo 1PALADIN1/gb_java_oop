@@ -15,7 +15,7 @@ public class Spearman extends Unit {
 
     @Override
     public String getInfo() {
-        return "Spearman " + super.getInfo();
+        return "Spearman\t\t" + super.getInfo();
     }
 
     @Override

@@ -17,7 +17,7 @@ public class Wizard extends Unit {
 
     @Override
     public String getInfo() {
-        return "Wizard " + super.getInfo() + ", magic";
+        return "Wizard\t\t" + super.getInfo() + ", magic";
     }
 
     @Override

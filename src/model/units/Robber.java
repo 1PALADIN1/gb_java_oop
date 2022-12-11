@@ -15,7 +15,7 @@ public class Robber extends Unit {
 
     @Override
     public String getInfo() {
-        return "Robber " + super.getInfo();
+        return "Robber\t\t" + super.getInfo();
     }
 
     @Override
