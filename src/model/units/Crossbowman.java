@@ -17,7 +17,7 @@ public class Crossbowman extends Unit {
 
     @Override
     public String getInfo() {
-        return "Crossbowman " + super.getInfo() + ", shoots: " + shoots;
+        return "Crossbowman\t" + super.getInfo() + ", shoots: " + shoots;
     }
 
     @Override

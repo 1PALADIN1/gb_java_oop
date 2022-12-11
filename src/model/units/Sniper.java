@@ -17,7 +17,7 @@ public class Sniper extends Unit {
 
     @Override
     public String getInfo() {
-        return "Sniper " + super.getInfo() + ", shoots: " + shoots;
+        return "Sniper\t\t" + super.getInfo() + ", shoots: " + shoots;
     }
 
     @Override

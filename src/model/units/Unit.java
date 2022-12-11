@@ -53,8 +53,8 @@ public abstract class Unit implements UnitInterface {
 
     @Override
     public String getInfo() {
-        return "Attack:" + attack + ", defence:" + defense + ", damage:" + damage.getAverage() +
-                ", health:" + health + ", speed:" + speed + ", state:" + state;
+        return "[State: " + state + "] \uD83D\uDDE1️:" + attack + ", \uD83D\uDEE1️:" + defense + ", \uD83C\uDFAF:" + damage.getAverage() +
+                ", \uD83E\uDDE1:" + health + ", \uD83E\uDD7E:" + speed;
     }
 
     @Override
