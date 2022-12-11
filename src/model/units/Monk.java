@@ -70,6 +70,7 @@ public class Monk extends Unit {
                 if (unitToHeal.getName().equals(UnitName.SNIPER) || unitToHeal.getName().equals(UnitName.MONK)) {
                     unitToHeal.setHealth(1);
                     unitToHeal.setState(UnitState.STAND);
+                    // вылечили коллегу, завершаем ход
                     return;
                 }
             }

@@ -70,6 +70,7 @@ public class Wizard extends Unit {
                 if (unitToHeal.getName().equals(UnitName.CROSSBOWMAN) || unitToHeal.getName().equals(UnitName.WIZARD)) {
                     unitToHeal.setHealth(1);
                     unitToHeal.setState(UnitState.STAND);
+                    // вылечили коллегу, завершаем ход
                     return;
                 }
             }
