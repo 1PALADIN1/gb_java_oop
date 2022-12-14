@@ -1,0 +1,104 @@
+
+atlas.png
+size: 512, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Crossbowman_Dead
+  rotate: false
+  xy: 339, 81
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: -1
+Crossbowman_Idle
+  rotate: false
+  xy: 255, 41
+  size: 42, 77
+  orig: 42, 77
+  offset: 0, 0
+  index: -1
+Monk_Dead
+  rotate: false
+  xy: 105, 2
+  size: 41, 31
+  orig: 41, 31
+  offset: 0, 0
+  index: -1
+Monk_Idle
+  rotate: false
+  xy: 299, 38
+  size: 38, 80
+  orig: 38, 80
+  offset: 0, 0
+  index: -1
+Peasant_Dead
+  rotate: false
+  xy: 255, 6
+  size: 40, 33
+  orig: 40, 33
+  offset: 0, 0
+  index: -1
+Peasant_Idle
+  rotate: false
+  xy: 105, 35
+  size: 53, 83
+  orig: 53, 83
+  offset: 0, 0
+  index: -1
+Robber_Dead
+  rotate: false
+  xy: 391, 87
+  size: 51, 31
+  orig: 51, 31
+  offset: 0, 0
+  index: -1
+Robber_Idle
+  rotate: false
+  xy: 160, 36
+  size: 52, 82
+  orig: 52, 82
+  offset: 0, 0
+  index: -1
+Sniper_Dead
+  rotate: false
+  xy: 444, 84
+  size: 43, 34
+  orig: 43, 34
+  offset: 0, 0
+  index: -1
+Sniper_Idle
+  rotate: false
+  xy: 214, 35
+  size: 39, 83
+  orig: 39, 83
+  offset: 0, 0
+  index: -1
+Spearman_Dead
+  rotate: false
+  xy: 297, 12
+  size: 33, 24
+  orig: 33, 24
+  offset: 0, 0
+  index: -1
+Spearman_Idle
+  rotate: false
+  xy: 58, 23
+  size: 45, 95
+  orig: 45, 95
+  offset: 0, 0
+  index: -1
+Wizard_Dead
+  rotate: false
+  xy: 339, 42
+  size: 47, 37
+  orig: 47, 37
+  offset: 0, 0
+  index: -1
+Wizard_Idle
+  rotate: false
+  xy: 2, 16
+  size: 54, 102
+  orig: 54, 102
+  offset: 0, 0
+  index: -1

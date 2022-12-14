@@ -10,13 +10,15 @@ import com.mygdx.game.view.MapRenderer;
 
 public class MyGdxGame extends ApplicationAdapter {
 	private static final int GANG_SIZE = 10;
+	private static final float TICK = 2.0f;
 
 	private SpriteBatch batch;
 	private Texture background;
 
 	private MapRenderer mapRenderer;
 	private Game game;
-	
+	private float timeLeft;
+
 	@Override
 	public void create () {
 		game = new Game(GANG_SIZE);
@@ -24,11 +26,20 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		background = new Texture("background.png");
 		mapRenderer = new MapRenderer(game);
+
+		timeLeft = TICK;
 	}
 
 	@Override
 	public void render () {
 		ScreenUtils.clear(0, 0, 0, 1);
+
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		timeLeft -= deltaTime;
+		if (timeLeft <= 0) {
+			game.nextTurn();
+			timeLeft = TICK;
+		}
 
 		batch.begin();
 		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
