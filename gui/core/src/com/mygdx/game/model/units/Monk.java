@@ -1,6 +1,6 @@
 package com.mygdx.game.model.units;
 
-import com.mygdx.game.model.Vector2;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.*;
 

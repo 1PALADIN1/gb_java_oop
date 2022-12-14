@@ -1,6 +1,6 @@
 package com.mygdx.game.model.units;
 
-import com.mygdx.game.model.Vector2;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 import java.util.Random;
@@ -40,7 +40,7 @@ public class Crossbowman extends Unit {
         int index = -1;
         for (int i = 0; i < getEnemies().size(); i++) {
             Unit enemy = getEnemies().get(i);
-            double tmp = enemy.getPosition().distance(getPosition());
+            double tmp = enemy.getPosition().dst(getPosition());
             if (dist > tmp && enemy.getState() != UnitState.DEAD) {
                 dist = tmp;
                 index = i;
