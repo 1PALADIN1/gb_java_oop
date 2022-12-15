@@ -12,7 +12,7 @@ public class Crossbowman extends Unit {
         super(6, 3, new DamageInfo(2, 3), 10, 4, UnitState.STAND, UnitName.CROSSBOWMAN, gang, enemies);
         shoots = 16;
         setPosition(initPosition);
-        setQuantity(new Random().nextInt(5) + 2);
+        setQuantity(new Random().nextInt(5) + 10);
     }
 
     @Override

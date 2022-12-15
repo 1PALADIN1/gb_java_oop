@@ -1,6 +1,7 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -27,6 +28,9 @@ public class MapRenderer {
     private final TextureAtlas.AtlasRegion archerDead;
     private final TextureAtlas.AtlasRegion sniperIdle;
     private final TextureAtlas.AtlasRegion sniperDead;
+    private final TextureAtlas.AtlasRegion healthBack;
+
+    private final BitmapFont font;
 
     // левый нижний угол поля
     private final Vector2 startRenderPoint;
@@ -61,44 +65,50 @@ public class MapRenderer {
         archerDead = atlas.findRegion("Crossbowman_Dead");
         sniperIdle = atlas.findRegion("Sniper_Idle");
         sniperDead = atlas.findRegion("Sniper_Dead");
+        healthBack = atlas.findRegion("HP_Back");
+
+        font = new BitmapFont();
     }
 
     public void render(SpriteBatch batch) {
-        defaultIdle.flip(true, false);
-        defaultDead.flip(true, false);
         for (int i = gameInfo.getGangSize() - 1; i >= 0; i--) {
-            Unit darkUnit = gameInfo.getDarkSide().get(i);
-
-            float x = startRenderPoint.x + (darkUnit.getPosition().x - 1) * gridSize.x;
-            float y = startRenderPoint.y + (darkUnit.getPosition().y - 1) * gridSize.y;
-            TextureAtlas.AtlasRegion region = darkUnit.getState() == UnitState.DEAD
-                    ? getDead(darkUnit.getName())
-                    : getIdle(darkUnit.getName());
-            if (!region.isFlipX()) {
-                region.flip(true, false);
-            }
-            batch.draw(region, x, y);
+            drawUnit(gameInfo.getDarkSide().get(i), batch, true);
         }
 
-        defaultIdle.flip(true, false);
-        defaultDead.flip(true, false);
         for (int i = gameInfo.getGangSize() - 1; i >= 0; i--) {
-            Unit whiteUnit = gameInfo.getWhiteSide().get(i);
-
-            float x = startRenderPoint.x + (whiteUnit.getPosition().x - 1) * gridSize.x;
-            float y = startRenderPoint.y + (whiteUnit.getPosition().y - 1) * gridSize.y;
-            TextureAtlas.AtlasRegion region = whiteUnit.getState() == UnitState.DEAD
-                    ? getDead(whiteUnit.getName())
-                    : getIdle(whiteUnit.getName());
-            if (region.isFlipX()) {
-                region.flip(true, false);
-            }
-            batch.draw(region, x, y);
+            drawUnit(gameInfo.getWhiteSide().get(i), batch, false);
         }
     }
 
     public void dispose () {
         atlas.dispose();
+    }
+
+    private void drawUnit(Unit unit, SpriteBatch batch, boolean isDarkSide) {
+        float x = startRenderPoint.x + (unit.getPosition().x - 1) * gridSize.x;
+        float y = startRenderPoint.y + (unit.getPosition().y - 1) * gridSize.y;
+        TextureAtlas.AtlasRegion region = unit.getState() == UnitState.DEAD
+                ? getDead(unit.getName())
+                : getIdle(unit.getName());
+
+        if (isDarkSide && !region.isFlipX()) {
+            region.flip(true, false);
+        }
+        if (!isDarkSide && region.isFlipX()) {
+            region.flip(true, false);
+        }
+
+        batch.draw(region, x, y);
+
+        int displayHealth = unit.getState() == UnitState.DEAD ? 0 : unit.getQuantity();
+        // draw health
+        if (isDarkSide) {
+            batch.draw(healthBack, x - 20, y);
+            font.draw(batch, Integer.toString(displayHealth), x - 13, y + 13);
+        } else {
+            batch.draw(healthBack, x + 35, y);
+            font.draw(batch, Integer.toString(displayHealth), x + 42, y + 13);
+        }
     }
 
     private TextureAtlas.AtlasRegion getIdle(String unitName) {

@@ -9,7 +9,7 @@ public class Spearman extends Unit {
     public Spearman(List<Unit> gang, List<Unit> enemies, Vector2 initPosition) {
         super(4, 5, new DamageInfo(1, 3), 10, 4, UnitState.STAND, UnitName.SPEARMAN, gang, enemies);
         setPosition(initPosition);
-        setQuantity(new Random().nextInt(6) + 8);
+        setQuantity(new Random().nextInt(10) + 10);
     }
 
     @Override

@@ -112,6 +112,10 @@ public abstract class Unit implements UnitInterface {
         return damage;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
     protected void setQuantity(int quantity) {
         this.quantity = quantity;
     }

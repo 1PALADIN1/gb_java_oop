@@ -13,7 +13,7 @@ public class Wizard extends Unit {
         super(17, 12, new DamageInfo(-5, -5), 30, 9, UnitState.STAND, UnitName.WIZARD, gang, enemies);
         magic = true;
         setPosition(initPosition);
-        setQuantity(new Random().nextInt(4) + 1);
+        setQuantity(new Random().nextInt(10) + 10);
     }
 
     @Override
